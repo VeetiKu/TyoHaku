@@ -1,5 +1,7 @@
 # Työhaku
 
+## Sovelluksen Toiminnot
+
 * Käyttäjä pystyy luomaan tunnuksen ja kirjautumaan sisään sovellukseen.
 * Käyttäjä pystyy lisäämään ja poistamaan omia työpaikkailmoituksia.
 * Käyttäjä näkee sovellukseen lisätyt työpaikkailmoitukset.
