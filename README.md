@@ -1,4 +1,4 @@
-# Tyohaku
+# Työhaku
 
 * Käyttäjä pystyy luomaan tunnuksen ja kirjautumaan sisään sovellukseen.
 * Käyttäjä pystyy lisäämään ja poistamaan omia työpaikkailmoituksia.
