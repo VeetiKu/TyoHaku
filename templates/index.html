@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>TyöHaku</title>
+</head>
+
+<body>
+  <h1>TyöHaku</h1>
+
+  {% if session.username %}
+  <p>
+    Olet kirjautunut nimellä {{ session.username }} id-numerosi on {{ session.user_id }}
+  </p>
+  {% endif %}
+
+  </p>
+      <a href="/login">Kirjaudu Sisään  </a>
+      <a href="/register">Luo Tunnus  </a>
+      <a href="/logout">Kirjaudu Ulos</a>
+</p>
+  <a href="/uusi_julkaisu">Uusi Julkaisu</a>
+</p>
+</body>
+
+</html>

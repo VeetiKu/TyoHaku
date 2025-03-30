@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Kirjautuminen</title>
+</head>
+
+<body>
+  {% if session.username %}
+    <p>
+      Olet kirjautunut nimellä {{ session.username }}.
+      <a href="{{ url_for('logout') }}">Kirjaudu ulos</a>
+    </p>
+  {% else %}
+    <h2>Kirjautuminen</h2>
+    <form method="POST">
+      <label for="username">Käyttäjätunnus:</label>
+      <input type="text" id="username" name="username" required>
+      <br><br>
+      <label for="password">Salasana:</label>
+      <input type="password" id="password" name="password" required>
+      <br><br>
+      <button type="submit">Kirjaudu</button>
+    </form>
+
+    {% if error %}
+      <p style="color: red;">{{ error }}</p>
+    {% endif %}
+  {% endif %}
+</body>
+
+</html>

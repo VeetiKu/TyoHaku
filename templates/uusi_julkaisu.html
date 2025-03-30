@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Uusi Julkaisu</title>
+</head>
+<body>
+    <h2>Uusi Julkaisu</h2>
+    <form action="/create_item" method="post">
+        <p>
+            Työtehtävä: <br />
+            <input type="text" name="TyöTehtävä" required />
+        </p>
+        <p>
+            Työnantajan nimi: <br />
+            <input type="text" name="Työnantajan nimi" required />
+        </p>
+        <p>
+            Työpaikan Sijanti: <br />
+            <input type="text" name="Työpaikan Sijanti" required />
+        </p>
+        <p>
+            Palkka: <br /> 
+            <input type="text" name="Palkka"/> €/kk
+        </p>
+        </p>
+        Työnkuvaus: <br />
+        <textarea rows="30" cols="120"></textarea>
+    </p>
+    <p>
+        Viimeinen Hakupäivä: <br />
+        <input type="text" name="Viimeinen Hakupäivä" required />
+    </p>
+        <input type="submit" value="Julkaise" />
+    </form>
+</body>
+</html>
