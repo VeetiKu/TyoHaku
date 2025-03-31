@@ -20,6 +20,20 @@ def uusi_julkaisu():
 def register():
     return render_template("register.html")
 
+@app.route("/create_item", methods=["POST"])
+def create_item():
+    title = request.form["title"]
+    author = request.form["author"]
+    description = request.form["description"]
+    salary = request.form["salary"]
+    location = request.form["location"]
+    user_id = session["user_id"]
+    
+    sql = "INSERT INTO items (title, author, description, salary, location, user_id) VALUES (?, ?, ?, ? ,?, ?)"
+    db.execute(sql, [title, author, description, salary, location, user_id])
+    
+    return redirect("/")
+
 @app.route("/create", methods=["POST"])
 def create():
     username = request.form["username"]

@@ -8,23 +8,22 @@
     <form action="/create_item" method="post">
         <p>
             Työtehtävä: <br />
-            <input type="text" name="TyöTehtävä" required />
+            <input type="text" name="title" required />
         </p>
         <p>
             Työnantajan nimi: <br />
-            <input type="text" name="Työnantajan nimi" required />
+            <input type="text" name="author" required />
         </p>
         <p>
             Työpaikan Sijanti: <br />
-            <input type="text" name="Työpaikan Sijanti" required />
+            <input type="text" name="location" required />
         </p>
         <p>
             Palkka: <br /> 
-            <input type="text" name="Palkka"/> €/kk
-        </p>
+            <input type="text" name="salary"/> €/kk
         </p>
         Työnkuvaus: <br />
-        <textarea rows="30" cols="120"></textarea>
+        <textarea name="description" rows="30" cols="120"></textarea>
     </p>
     <p>
         Viimeinen Hakupäivä: <br />
