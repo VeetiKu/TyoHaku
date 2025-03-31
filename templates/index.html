@@ -21,6 +21,14 @@
 </p>
   <a href="/uusi_julkaisu">Uusi Julkaisu</a>
 </p>
+
+
+  <h2>Avoimet Työpaikat</h2>
+  <ul>
+  {% for item in items%}
+  <li><a href="/item/{{ item.id  }}"> {{item.title}}</li>
+  {%endfor%}
+  <ul>
 </body>
 
 </html>
