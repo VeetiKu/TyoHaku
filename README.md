@@ -10,3 +10,8 @@
 * Käyttäjä pystyy valitsemaan julkaisulle yhden tai useamman luokittelun.
 * Työpaikkailmotuksissa näkyy lista käyttäjistä, jotka on hakeneet työpaikkaa .
 
+## Sovelluksen Toiminnot tällä hetkellä
+* Käyttäjä pystyy luomaan tunnuksen ja kirjautumaan sisään sovellukseen.
+* Käyttäjä pystyy lisäämään työpaikkailmoituksia.
+* Käyttäjä näkee sovellukseen lisätyt työpaikkailmoitukset.
+  
