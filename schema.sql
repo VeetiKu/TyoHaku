@@ -7,6 +7,7 @@ CREATE TABLE users (
 CREATE TABLE items (
     id INTEGER PRIMARY KEY ,
     title TEXT ,
+    author TEXT,
     description TEXT ,
     salary INTEGER ,
     location TEXT ,
