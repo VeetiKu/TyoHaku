@@ -11,5 +11,6 @@ CREATE TABLE items (
     description TEXT ,
     salary INTEGER ,
     location TEXT ,
+    deadline DATE,
     user_id INTEGER REFERENCES users
 );

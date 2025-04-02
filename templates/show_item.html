@@ -6,6 +6,11 @@
 
 <body>
     <h1>{{  item.title }}</h1>
+    {% if session.user_id == item.user_id %}
+  <p>
+    <a href="/edit_item/{{  item.id  }}"> Muokkaa julkaisua </a>
+  </p>
+  {% endif %}
     <p>
         työnantaja:{{ item.author}}
     <p>
@@ -22,6 +27,10 @@
     <p>
         Julkaisija:
         {{ item.username }}
+    <p>
+    <p>
+        viimeinen hakupäivä:
+            {{ item.deadline }}
     <p>
     <p>
         <a href="/">Etusivulle</a>

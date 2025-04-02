@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Julkaisun muokkaus</title>
+</head>
+<body>
+    <h2>Julkaisun muokkaus</h2>
+    <form action="/update_item" method="post">
+        <p>
+            Työtehtävä: <br />
+            <input type="text" name="title" value="{{ item.title }}" required />
+        </p>
+        <p>
+            Työnantajan nimi: <br />
+            <input type="text" name="author" value="{{ item.author }}" required />
+        </p>
+        <p>
+            Työpaikan sijainti: <br />
+            <input type="text" name="location" value="{{ item.location }}" required />
+        </p>
+        <p>
+            Palkka: <br /> 
+            <input type="text" name="salary" value="{{ item.salary }}"/> €/kk
+        </p>
+        <p>
+            Työnkuvaus: <br />
+            <textarea name="description" rows="30" cols="120">{{ item.description }}</textarea>
+        </p>
+        <p>
+            Viimeinen hakupäivä: <br />
+            <input type="date" name="deadline" value="{{ item.deadline }}" required />
+        </p>
+        <input type="hidden" name="item_id" value="{{ item.id }}" />
+        <input type="submit" value="Päivitä" />
+    </form>
+</body>
+</html>

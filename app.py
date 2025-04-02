@@ -34,11 +34,31 @@ def create_item():
     description = request.form["description"]
     salary = request.form["salary"]
     location = request.form["location"]
+    deadline = request.form["deadline"]
     user_id = session["user_id"]
     
-    items.add_item(title, author, description, salary, location, user_id)
+    items.add_item(title, author, description, salary, location, deadline, user_id)
     
     return redirect("/")
+
+@app.route("/edit_item/<int:item_id>")
+def edit_item(item_id):
+    item = items.get_item(item_id,)
+    return render_template("edit_item.html", item=item)
+
+@app.route("/update_item", methods=["POST"])
+def update_item():
+    item_id = request.form["item_id"]
+    title = request.form["title"]
+    author = request.form["author"]
+    description = request.form["description"]
+    salary = request.form["salary"]
+    location = request.form["location"]
+    deadline = request.form["deadline"]
+    
+    items.update_item(item_id, title, author, description, salary, location, deadline)
+    
+    return redirect("/item/" + str(item_id))
 
 @app.route("/create", methods=["POST"])
 def create():
@@ -55,7 +75,7 @@ def create():
     except sqlite3.IntegrityError:
         return "VIRHE: tunnus on jo varattu"
 
-    return "Tunnus luotu"
+    return '<p>Tunnus luotu! <a href="/">Palaa etusivulle</a></p>'
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -81,4 +101,5 @@ def login():
 @app.route("/logout")
 def logout():
     del session["username"]
+    del session["user_id"]
     return redirect("/")
