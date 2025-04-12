@@ -3,6 +3,7 @@ import sqlite3
 from flask import abort,redirect, render_template, request, session
 from werkzeug.security import generate_password_hash, check_password_hash
 import db
+import re
 import config
 import items
 
@@ -49,10 +50,20 @@ def create_item():
     check_login()
     
     title = request.form["title"]
+    if not title or len(title) > 50:
+        abort(403)
     author = request.form["author"]
+    if not author or len(author) > 50:
+        abort(403)
     description = request.form["description"]
+    if not description or len(description) > 3000:
+        abort(403)
     salary = request.form["salary"]
+    if not re.search("^[1-9][0-9]{0,7}$", salary):
+        abort(403)
     location = request.form["location"]
+    if not location or len(location) > 50:
+        abort(403)
     deadline = request.form["deadline"]
     user_id = session["user_id"]
     
@@ -79,12 +90,21 @@ def update_item():
         abort(404)
     if item["user_id"] != session["user_id"]:
         abort(403)
-        
     title = request.form["title"]
+    if not title or len(title) > 50:
+        abort(403)
     author = request.form["author"]
+    if not author or len(author) > 50:
+        abort(403)
     description = request.form["description"]
+    if not description or len(description) > 3000:
+        abort(403)
     salary = request.form["salary"]
+    if not re.search("^[1-9][0-9]{0,7}$", salary):
+        abort(403)
     location = request.form["location"]
+    if not location or len(location) > 50:
+        abort(403)
     deadline = request.form["deadline"]
     
     items.update_item(item_id, title, author, description, salary, location, deadline)
