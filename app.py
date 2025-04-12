@@ -1,7 +1,6 @@
 from flask import Flask
 import sqlite3
 from flask import abort,redirect, render_template, request, session
-from werkzeug.security import generate_password_hash, check_password_hash
 import db
 import re
 import config
@@ -147,14 +146,11 @@ def create():
     password2 = request.form["password2"]
     if password1 != password2:
         return "VIRHE: salasanat eivät ole samat"
-    password_hash = generate_password_hash(password1)
-
+    
     try:
-        sql = "INSERT INTO users (username, password_hash) VALUES (?, ?)"
-        db.execute(sql, [username, password_hash])
+        users.create_user(username, password1)
     except sqlite3.IntegrityError:
         return "VIRHE: tunnus on jo varattu"
-
     return '<p>Tunnus luotu! <a href="/">Palaa etusivulle</a></p>'
 
 @app.route("/login", methods=["GET", "POST"])
@@ -166,12 +162,9 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
     
-        sql = "SELECT id, password_hash FROM users WHERE username = ?"
-        result = db.query(sql, [username])[0]
-        user_id = result["id"]
-        password_hash = result["password_hash"]
+    user_id = users.check_login(username, password)
 
-    if check_password_hash(password_hash, password):
+    if user_id:
         session["user_id"] = user_id
         session["username"] = username
         return redirect("/")
