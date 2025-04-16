@@ -15,7 +15,7 @@
             <input type="text" name="author" maxlength="50" required />
         </p>
         <p>
-            Työpaikan Sijanti: <br />
+            Työpaikan sijainti: <br />
             <input type="text" name="location" maxlength="50" required />
         </p>
         <p>
@@ -28,7 +28,19 @@
         Viimeinen Hakupäivä: <br />
         <input type="date" name="deadline" required />
     </p>
-        <input type="submit" value="Julkaise" />
-    </form>
-</body>
-</html>
+    {% for class in classes %}
+    <p>
+        {{ class }}: <br />
+        <select name="classes">
+          <option value="">(valitse)</option>
+            {% for option in classes[class] %}
+            <option value="{{ class }}:{{ option }}">{{ option }}</option>
+          {% endfor %}
+          </select>
+        </p>
+        {% endfor %}
+        <input type="submit" value="Luo ilmoitus" />
+      </form>
+    </body>
+    
+    </html>
