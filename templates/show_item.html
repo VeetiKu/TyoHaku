@@ -41,6 +41,23 @@
         viimeinen hakupäivä:
             {{ item.deadline }}
     <p>
+        <h2>Hakijat</h2>
+<ul>
+    {% for application in applications %}
+    <li>
+        <a href="/user/{{ application.user_id }}">{{ application.username }}</a><br>
+        <strong>Viesti:</strong><br>
+        <em>{{ application.message }}</em>
+    </li>
+    {% endfor %}
+</ul>
+    <h2>Hae Työpaikkaa</h2>
+        <form action="/create_application" method="post">
+        <input type="hidden" name="item_id" value="{{ item.id }}">
+        <label for="message">Kerro hieman itsestäsi:</label><br>
+        <textarea name="message" id="message" rows="5" cols="40" required></textarea><br><br>
+        <input type="submit" value="Hae" />
+        </form>
     <p>
         <a href="/">Etusivulle</a>
     <p>

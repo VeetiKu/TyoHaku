@@ -43,13 +43,28 @@ def show_item(item_id):
     if not item:
         abort(404)
     classes = items.get_classes(item_id)
-    return render_template("show_item.html", item=item, classes=classes)
+    applications = items.get_applications(item_id)
+    return render_template("show_item.html", item=item, classes=classes, applications=applications)
 
 @app.route("/uusi_julkaisu")
 def uusi_julkaisu():
     check_login()
     classes = items.get_all_classes()
     return render_template("uusi_julkaisu.html", classes=classes)
+
+@app.route("/create_application", methods=["POST"])
+def create_application():
+    check_login()
+    item_id = request.form["item_id"]
+    message = request.form["message"]
+    item = items.get_item(item_id)
+    if not item:
+        abort(403)
+    user_id = session["user_id"]
+ 
+    items.add_application(item_id, user_id, message)
+ 
+    return redirect("/item/" + str(item_id))
 
 @app.route("/register")
 def register():
