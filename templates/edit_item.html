@@ -31,7 +31,25 @@
             <input type="date" name="deadline" value="{{ item.deadline }}" required />
         </p>
         <input type="hidden" name="item_id" value="{{ item.id }}" />
-        <input type="submit" value="Päivitä" />
+
+        {% for class in all_classes %}
+        <p>
+          {{ class }}: <br />
+          <select name="classes">
+            <option value="">(valitse)</option>
+          {% for option in all_classes[class] %}
+            {% if classes[class] == option %}
+            <option value="{{ class }}:{{ option }}" selected>{{ option }}</option>
+            {% else %}
+            <option value="{{ class }}:{{ option }}">{{ option }}</option>
+            {% endif %}
+          {% endfor %}
+          </select>
+        </p>
+        {% endfor %}
+
+    <input type="submit" value="Päivitä" />
+
     </form>
 </body>
 </html>
