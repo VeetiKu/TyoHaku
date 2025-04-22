@@ -57,12 +57,23 @@ def create_application():
     check_login()
     item_id = request.form["item_id"]
     message = request.form["message"]
+    if not message or len(message) > 300:
+        abort(403)
+    age = request.form["age"]
+    if not re.search("^[1-9][0-9]{0,7}$", age):
+        abort(403)
+    email = request.form["email"]
+    if not email or len(email) > 50:
+        abort(403)
     item = items.get_item(item_id)
     if not item:
         abort(403)
     user_id = session["user_id"]
+    
+    if items.check_applications(item_id, user_id):
+        return redirect("/item/" + str(item_id) + "?error=already_applied")
  
-    items.add_application(item_id, user_id, message)
+    items.add_application(item_id, user_id, message, age, email)
  
     return redirect("/item/" + str(item_id))
 

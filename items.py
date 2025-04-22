@@ -66,14 +66,19 @@ def find_items(query):
     like = "%" + query + "%"
     return db.query(sql, [like, like])
 
-def add_application(item_id, user_id, message):
-    sql = """INSERT INTO applications (item_id, user_id, message)
-            VALUES (?, ?, ?)"""
-    db.execute(sql, [item_id, user_id, message])
+def add_application(item_id, user_id, message, age, email):
+    sql = """INSERT INTO applications (item_id, user_id, message, age, email)
+            VALUES (?, ?, ?, ?, ?)"""
+    db.execute(sql, [item_id, user_id, message, age, email])
  
 def get_applications(item_id):
-    sql = """SELECT applications.message, users.id user_id, users.username
+    sql = """SELECT applications.message, applications.age, applications.email, users.id user_id, users.username
             FROM applications, users
             WHERE applications.item_id = ? AND applications.user_id = users.id
             ORDER BY applications.id DESC"""
     return db.query(sql, [item_id])
+
+def check_applications(item_id, user_id):
+    sql = "SELECT 1 FROM applications WHERE item_id = ? AND user_id = ?"
+    result = db.query(sql, [item_id, user_id])
+    return bool(result)

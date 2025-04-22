@@ -41,21 +41,36 @@
         viimeinen hakupäivä:
             {{ item.deadline }}
     <p>
-        <h2>Hakijat</h2>
+    
+        <h2>Hakijat ({{ applications|length }} kpl)</h2>
 <ul>
     {% for application in applications %}
     <li>
         <a href="/user/{{ application.user_id }}">{{ application.username }}</a><br>
+        <strong>Ikä:</strong> {{ application.age }}<br>
+        <strong>Sähköposti:</strong> {{ application.email }}<br>
         <strong>Viesti:</strong><br>
         <em>{{ application.message }}</em>
-    </li>
+
     {% endfor %}
 </ul>
     <h2>Hae Työpaikkaa</h2>
+    {% if request.args.get('error') == 'already_applied' %}
+    <p style="color: red; font-weight: bold;">Olet jo hakenut tähän työpaikkaan.</p>
+    {% endif %}
+
         <form action="/create_application" method="post">
         <input type="hidden" name="item_id" value="{{ item.id }}">
+
+        <label for="age">Ikä:</label><br>
+        <input type="number" name="age" id="age" min="0" max="99" pattern="[1-9][0-9]{0,7}" required><br><br>
+
+        <label for="email">Sähköposti:</label><br>
+        <input type="email" name="email" id="email" maxlength="50" required><br><br>
+
         <label for="message">Kerro hieman itsestäsi:</label><br>
-        <textarea name="message" id="message" rows="5" cols="40" required></textarea><br><br>
+        <textarea name="message" id="message" rows="7" cols="45" maxlength="300" required></textarea><br><br>
+
         <input type="submit" value="Hae" />
         </form>
     <p>
