@@ -234,3 +234,14 @@ def logout():
         del session["username"]
         del session["user_id"]
     return redirect("/")
+
+@app.route("/delete_application/<int:item_id>", methods=["POST"])
+def delete_application(item_id):
+    check_login()
+    user_id = session["user_id"]
+
+    if not items.check_applications(item_id, user_id):
+        abort(403)
+
+    items.delete_application(item_id, user_id)
+    return redirect("/item/" + str(item_id))

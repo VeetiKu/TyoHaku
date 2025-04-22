@@ -43,6 +43,8 @@
     <p>
     
         <h2>Hakijat ({{ applications|length }} kpl)</h2>
+
+
 <ul>
     {% for application in applications %}
     <li>
@@ -50,16 +52,26 @@
         <strong>Ikä:</strong> {{ application.age }}<br>
         <strong>Sähköposti:</strong> {{ application.email }}<br>
         <strong>Viesti:</strong><br>
-        <em>{{ application.message }}</em>
+        <em>{{ application.message }}</em><br>
 
+        {% if session.user_id == application.user_id %}
+        <form action="/delete_application/{{ item.id }}" method="POST" style="display:inline;">
+            <button type="submit" onclick="return confirm('Haluatko varmasti poistaa hakemuksesi?');">Poista hakemus</button>
+        </form>
+        {% endif %}
+    </li>
     {% endfor %}
 </ul>
-    <h2>Hae Työpaikkaa</h2>
-    {% if request.args.get('error') == 'already_applied' %}
-    <p style="color: red; font-weight: bold;">Olet jo hakenut tähän työpaikkaan.</p>
-    {% endif %}
 
-        <form action="/create_application" method="post">
+<h2>Hae Työpaikkaa</h2>
+
+{% if session.user_id %}
+    {% if session.user_id != item.user_id %}
+        {% if request.args.get('error') == 'already_applied' %}
+        <p style="color: red; font-weight: bold;">Olet jo hakenut tähän työpaikkaan.</p>
+    {% else %}
+
+    <form action="/create_application" method="post">
         <input type="hidden" name="item_id" value="{{ item.id }}">
 
         <label for="age">Ikä:</label><br>
@@ -72,9 +84,15 @@
         <textarea name="message" id="message" rows="7" cols="45" maxlength="300" required></textarea><br><br>
 
         <input type="submit" value="Hae" />
-        </form>
-    <p>
-        <a href="/">Etusivulle</a>
-    <p>
-</body>
-</html>
+    </form>
+    {% endif %}
+{% else %}
+    <p>Et voi hakea omaan työpaikkaasi.</p>
+    {% endif %}
+{% else %}
+    <p>Sinun täytyy olla kirjautuneena, jotta voit hakea työpaikkaa.</p>
+{% endif %}
+
+<p>
+    <a href="/">Etusivulle</a>
+</p>

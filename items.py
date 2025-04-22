@@ -82,3 +82,7 @@ def check_applications(item_id, user_id):
     sql = "SELECT 1 FROM applications WHERE item_id = ? AND user_id = ?"
     result = db.query(sql, [item_id, user_id])
     return bool(result)
+
+def delete_application(item_id, user_id):
+    sql = "DELETE FROM applications WHERE item_id = ? AND user_id = ?"
+    db.execute(sql, [item_id, user_id])
