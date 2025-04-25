@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Julkaisun muokkaus</title>
-</head>
-<body>
+{% extends "layout.html" %}
+
+{% block title %}Julkaisun Muokkaus{% endblock %}
+
+{% block content %}
     <h2>Julkaisun muokkaus</h2>
     <form action="/update_item" method="post">
         <p>
@@ -51,5 +50,4 @@
     <input type="submit" value="Päivitä" />
 
     </form>
-</body>
-</html>
+{%endblock%}

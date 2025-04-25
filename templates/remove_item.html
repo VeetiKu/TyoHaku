@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Julkaisun Poisto</title>
-</head>
-<body>
+{% extends "layout.html" %}
+
+{% block title %}Julkaisun Poisto{% endblock %}
+
+{% block content %}
     <h2>Julkaisun Poisto</h2>
     <p> Olet poistamassa Julkaisua: {{  item.title  }}<p>
         <p> Haluatko varmasti poistaa tämän julkaisun?<p>
@@ -11,5 +10,4 @@
         <input type="submit" name="remove" value="Poista julkaisu">
         <input type="submit" name="back" value="Peruuta">
     </form>
-</body>
-</html>
+{%endblock%}

@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Uusi Julkaisu</title>
-</head>
-<body>
+{% extends "layout.html" %}
+
+{% block title %}Uusi Julkaisu{% endblock %}
+
+{% block content %}
     <h2>Uusi Julkaisu</h2>
     <form action="/create_item" method="post">
         <p>
@@ -41,6 +40,4 @@
         {% endfor %}
         <input type="submit" value="Luo ilmoitus" />
       </form>
-    </body>
-    
-    </html>
+{%endblock%}

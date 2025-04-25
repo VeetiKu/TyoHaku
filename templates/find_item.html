@@ -1,23 +1,16 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>Etsi Julkaisu</title>
-</head>
+{% block title %}TyöHaku{% endblock %}
 
-<body>
-  <h1>Etsi Julkaisu</h1>
+{% block content %}
+  <h2>Etsi Julkaisu</h2>
 
   <form action="/find_item" method="get">
     <p>
     Hakusana: <input type="text" name="query" value="{{  query  }}">
     <p>
-    <input type="submit" value="Etsi">
+    <input type="submit" value="Lähetä">
     <form>
-
-    <p>
-        <a href="/">Etusivulle</a>
-    <p>
     {% if query %}
     <h2>Tulokset:</h2>
 
@@ -27,6 +20,4 @@
         {% endfor %}
     <ul>
     {% endif %}
-</body>
-
-</html>
+{%endblock%}

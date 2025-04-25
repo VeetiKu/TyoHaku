@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+  <h1>TyöHaku</h1>
+  {% if session.user_id %}
+  <p>
+    Olet kirjautunut nimellä <a href="/user/{{ session.user_id }}">{{ session.username }}</a>
+  </p>
+  {% endif %}
+
+  <p>
+    <a href="/">Etusivu</a> |
+    <a href="/find_item">Etsi Julkaisu</a> |
+    {% if session.user_id %}
+    <a href="/uusi_julkaisu">Uusi Julkaisu</a> |
+    <a href="/logout"> Kirjaudu Ulos</a> 
+    {% else %}
+    <a href="/login"> Kirjaudu Sisään  </a> |
+    <a href="/register"> Luo Tunnus  </a>
+    {% endif %}
+  </p>
+
+  {% block content %}{% endblock %}
+</body>
+
+</html>

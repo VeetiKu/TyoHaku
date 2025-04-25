@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{  item.title }}</title>
-</head>
+{% extends "layout.html" %}
 
-<body>
-    <h1>{{  item.title }}</h1>
+{% block title %}{{  item.title  }}{% endblock %}
+
+{% block content %}
+    <h2>{{  item.title }}</h2>
     {% if session.user_id == item.user_id %}
   <p>
-    <a href="/edit_item/{{  item.id  }}"> Muokkaa julkaisua </a>
+    <a href="/edit_item/{{  item.id  }}"> Muokkaa julkaisua </a>    |
     <a href="/remove_item/{{  item.id  }}"> Poista Julkaisu </a>
   </p>
   {% endif %}
@@ -42,7 +40,7 @@
             {{ item.deadline }}
     <p>
     
-        <h2>Hakijat ({{ applications|length }} kpl)</h2>
+        <h3>Hakijat ({{ applications|length }} kpl)</h3>
 
 
 <ul>
@@ -63,7 +61,7 @@
     {% endfor %}
 </ul>
 
-<h2>Hae Työpaikkaa</h2>
+<h4>Hae Työpaikkaa</h4>
 
 {% if session.user_id %}
     {% if session.user_id != item.user_id %}
@@ -92,7 +90,4 @@
 {% else %}
     <p>Sinun täytyy olla kirjautuneena, jotta voit hakea työpaikkaa.</p>
 {% endif %}
-
-<p>
-    <a href="/">Etusivulle</a>
-</p>
+{% endblock %}
