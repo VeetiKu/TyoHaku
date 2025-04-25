@@ -3,8 +3,8 @@
 {% block title %}TyöHaku{% endblock %}
 
 {% block content %}
-  <h2>Etsi Julkaisu</h2>
 
+  <h2>Etsi Julkaisu</h2>
   <form action="/find_item" method="get">
     <p>
     Hakusana: <input type="text" name="query" value="{{  query  }}">
@@ -20,4 +20,5 @@
         {% endfor %}
     <ul>
     {% endif %}
+
 {%endblock%}

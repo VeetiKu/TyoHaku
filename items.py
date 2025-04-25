@@ -30,8 +30,12 @@ def get_classes(item_id):
         
     
 def get_items():
-    sql = "SELECT id, title, location FROM items ORDER BY id DESC"
-    
+    sql = """SELECT items.id, items.title, users.id user_ids, users.username,
+    COUNT(applications.id) application_count
+    FROM items JOIN users ON items.user_id = users.id
+    LEFT JOIN applications ON items.id = applications.item_id
+    GROUP BY items.id
+    ORDER BY items.id DESC"""
     return db.query(sql)
 
 def get_item(item_id):

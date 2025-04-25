@@ -5,9 +5,13 @@
 {% block content %}
 <h2>TyöHaku</h2>
 
-  <ul>
   {% for item in items%}
-  <li><a href="/item/{{ item.id  }}"> {{item.title}}</li>
+  <div class="item">
+  <a href="/item/{{ item.id  }}"> {{item.title}}</a> <br />
+  Ilmoittaja: <a href="/user/{{item.user_ids}}">{{ item.username }}</a> <br />
+  Hakijoiden määrä: {{ item.application_count }}
+  </div>
   {%endfor%}
   <ul>
 {% endblock %}
+
