@@ -30,7 +30,7 @@ def get_classes(item_id):
         
     
 def get_items():
-    sql = """SELECT items.id, items.title, users.id user_ids, users.username,
+    sql = """SELECT items.id, items.title, users.id user_id, users.username,
     COUNT(applications.id) application_count
     FROM items JOIN users ON items.user_id = users.id
     LEFT JOIN applications ON items.id = applications.item_id
@@ -64,7 +64,13 @@ def remove_item(item_id):
     db.execute(sql, [item_id])
     
 def find_items(query):
-    sql = """ SELECT id, title FROM items WHERE description LIKE ? OR title LIKE ? ORDER BY id DESC
+    sql = """SELECT items.id, items.title, users.id AS user_id, users.username, COUNT(applications.id) AS application_count
+    FROM items
+    JOIN users ON items.user_id = users.id
+    LEFT JOIN applications ON items.id = applications.item_id
+    WHERE description LIKE ? OR title LIKE ?
+    GROUP BY items.id
+    ORDER BY items.id DESC
     """
     
     like = "%" + query + "%"

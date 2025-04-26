@@ -4,10 +4,12 @@
 
 {% block content %}
     <h2>Julkaisun Poisto</h2>
+<div class="register">
     <p> Olet poistamassa Julkaisua: {{  item.title  }}<p>
         <p> Haluatko varmasti poistaa tämän julkaisun?<p>
     <form action="/remove_item/{{item.id}}" method="post">
         <input type="submit" name="remove" value="Poista julkaisu">
         <input type="submit" name="back" value="Peruuta">
     </form>
+</div>
 {%endblock%}

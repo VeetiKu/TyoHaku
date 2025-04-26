@@ -5,15 +5,14 @@
 {% block content %}
 
     <h2>{{  item.title }}</h2>
-<div class="item_view">
     {% if session.user_id == item.user_id %}
   <p>
     <a href="/edit_item/{{  item.id  }}"> Muokkaa julkaisua </a>    |
     <a href="/remove_item/{{  item.id  }}"> Poista Julkaisu </a>
   </p>
   {% endif %}
-    <p>
-        työnantaja:{{ item.author}}
+  <div class="item_view">
+    työnantaja:{{ item.author}}
     <p>
     <p>
         Palkka:{{ item.salary }} €/kk

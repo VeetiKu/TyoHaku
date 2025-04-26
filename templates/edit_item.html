@@ -4,6 +4,7 @@
 
 {% block content %}
     <h2>Julkaisun muokkaus</h2>
+<div class="item_view">
     <form action="/update_item" method="post">
         <p>
             Työtehtävä: <br />
@@ -23,7 +24,7 @@
         </p>
         <p>
             Työnkuvaus: <br />
-            <textarea name="description" rows="30" cols="120">{{ item.description }}</textarea>
+            <textarea name="description" rows="20" cols="80">{{ item.description }}</textarea>
         </p>
         <p>
             Viimeinen hakupäivä: <br />
@@ -48,6 +49,7 @@
         {% endfor %}
 
     <input type="submit" value="Päivitä" />
+</div>
 
     </form>
 {%endblock%}

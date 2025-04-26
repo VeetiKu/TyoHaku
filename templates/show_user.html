@@ -5,7 +5,7 @@
 {% block content %}
 
     <h2>Käyttäjän {{ user.username }} Profiili</h2>
-
+<div class="register">
     <p>
         Käyttäjällä on yhteensä {{ items | count }} julkaisua.
     </p>
@@ -16,8 +16,5 @@
         <li><a href="/item/{{ item.id }}">{{ item.title }}</a></li>
         {% endfor %}
     </ul>
-
-    <p>
-        <a href="/">Etusivulle</a>
-    </p>
+</div>
 {%endblock%}

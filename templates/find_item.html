@@ -5,20 +5,28 @@
 {% block content %}
 
   <h2>Etsi Julkaisu</h2>
+  <div class="register">
   <form action="/find_item" method="get">
     <p>
     Hakusana: <input type="text" name="query" value="{{  query  }}">
     <p>
     <input type="submit" value="Lähetä">
+
     <form>
     {% if query %}
+
     <h2>Tulokset:</h2>
 
-    <ul>
-        {% for item in results %}
-        <li><a href="/item/{{ item.id  }}">{{  item.title  }}</a></li>
-        {% endfor %}
-    <ul>
-    {% endif %}
 
+      {% for item in results %}
+      <div class="item">
+        <a href="/item/{{ item.id  }}"> {{item.title}}</a> <br />
+        Ilmoittaja: <a href="/user/{{item.user_ids}}">{{ item.username }}</a> <br />
+        Hakijoiden määrä: {{ item.application_count }}
+        </div>
+      {% endfor %}
+
+
+    {% endif %}
+    </div>
 {%endblock%}

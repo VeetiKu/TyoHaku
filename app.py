@@ -115,7 +115,7 @@ def create_item():
             classes.append((class_title, class_value))
     
     items.add_item(title, author, description, salary, location, deadline, user_id, classes)
-    
+
     return redirect("/")
 
 @app.route("/edit_item/<int:item_id>")
