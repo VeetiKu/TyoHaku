@@ -28,14 +28,14 @@
         Julkaisija:
         <a href="/user/{{  item.user_id  }}">{{ item.username }}</a>
     </p>
-    <p>
+    {% if classes %}
         Luokat:
         <ul>
         {% for class in classes %}
         <li>{{ class.title }}: {{ class.value }}</li>
         {% endfor %}
         </ul>
-    </p>
+        {% endif %}
     <p>
         viimeinen hakupäivä:
             {{ item.deadline }}
@@ -81,7 +81,7 @@
 
         <label for="message">Kerro hieman itsestäsi:</label><br>
         <textarea name="message" id="message" rows="7" cols="45" maxlength="300" required></textarea><br><br>
-        
+
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
         <input type="submit" value="Hae" />
     </form>

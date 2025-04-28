@@ -131,7 +131,6 @@ def create_item():
 @app.route("/edit_item/<int:item_id>")
 def edit_item(item_id):
     check_login()
-    check_csrf()
     item = items.get_item(item_id)
     if not item:
         abort(404)
