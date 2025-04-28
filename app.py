@@ -1,3 +1,4 @@
+import secrets
 from flask import Flask
 import sqlite3
 from flask import abort,redirect, render_template, request, session, flash
@@ -7,12 +8,19 @@ import config
 import items
 import users
 
+
 app = Flask(__name__)
 app.secret_key = config.secret_key
 
 def check_login():
     if "user_id" not in session:
         abort(403)
+        
+def check_csrf():
+     if "csrf_token" not in request.form:
+         abort(403)
+     if request.form["csrf_token"] != session["csrf_token"]:
+         abort(403)
 
 @app.route("/")
 def index():
@@ -55,6 +63,7 @@ def uusi_julkaisu():
 @app.route("/create_application", methods=["POST"])
 def create_application():
     check_login()
+    check_csrf()
     item_id = request.form["item_id"]
     message = request.form["message"]
     if not message or len(message) > 300:
@@ -84,6 +93,7 @@ def register():
 @app.route("/create_item", methods=["POST"])
 def create_item():
     check_login()
+    check_csrf()
     
     title = request.form["title"]
     if not title or len(title) > 50:
@@ -121,6 +131,7 @@ def create_item():
 @app.route("/edit_item/<int:item_id>")
 def edit_item(item_id):
     check_login()
+    check_csrf()
     item = items.get_item(item_id)
     if not item:
         abort(404)
@@ -138,6 +149,7 @@ def edit_item(item_id):
 @app.route("/update_item", methods=["POST"])
 def update_item():
     check_login()
+    check_csrf()
     item_id = request.form["item_id"]
     item = items.get_item(item_id)
     if not item:
@@ -189,6 +201,7 @@ def remove_item(item_id):
         return render_template("remove_item.html", item=item)
     
     if request.method == "POST":
+        check_csrf()
         if "remove" in request.form:
             items.remove_item(item_id)
             return redirect("/")
@@ -227,6 +240,7 @@ def login():
     if user_id:
         session["user_id"] = user_id
         session["username"] = username
+        session["csrf_token"] = secrets.token_hex(16)
         return redirect("/")
     else:
         flash("VIRHE: väärä tunnus tai salasana")

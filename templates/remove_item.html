@@ -10,6 +10,7 @@
     <form action="/remove_item/{{item.id}}" method="post">
         <input type="submit" name="remove" value="Poista julkaisu">
         <input type="submit" name="back" value="Peruuta">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
     </form>
 </div>
 {%endblock%}
