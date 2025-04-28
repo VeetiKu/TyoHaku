@@ -210,6 +210,7 @@ def create():
     except sqlite3.IntegrityError:
             flash("VIRHE: Tunnus on jo varattu")
             return redirect("/register")
+    flash("Tunnus Luotu")
     return redirect("/")
 
 @app.route("/login", methods=["GET", "POST"])
