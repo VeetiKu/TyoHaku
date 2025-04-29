@@ -109,10 +109,10 @@ def create_item():
     if not author or len(author) > 50:
         abort(403)
     description = request.form["description"]
-    if not description or len(description) > 3000:
+    if not description or len(description) > 1000:
         abort(403)
     salary = request.form["salary"]
-    if not re.search("^[1-9][0-9]{0,7}$", salary):
+    if not re.search("^[1-9][0-9]{0,7}$", salary):  
         abort(403)
     location = request.form["location"]
     if not location or len(location) > 50:
