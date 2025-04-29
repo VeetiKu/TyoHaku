@@ -22,7 +22,7 @@
     <p>
     <p>
         Työpaikkakuvaus:
-        {{ item.description }}
+        {{ item.description | show_lines }}
     <p>
     <p>
         Julkaisija:
@@ -51,7 +51,7 @@
         <strong>Ikä:</strong> {{ application.age }}<br>
         <strong>Sähköposti:</strong> {{ application.email }}<br>
         <strong>Viesti:</strong><br>
-        <em>{{ application.message }}</em><br>
+        <em>{{ application.message | show_lines }}</em><br>
 
         {% if session.user_id == application.user_id %}
         <form action="/delete_application/{{ item.id }}" method="POST" style="display:inline;">
