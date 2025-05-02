@@ -7,7 +7,16 @@ def get_user(user_id):
     return result[0] if result else None
 
 def get_items(user_id):
-    sql = "SELECT id, title FROM items WHERE user_id = ? ORDER BY id DESC"
+    sql = """
+    SELECT items.id, items.title, items.user_id, users.username,
+    COUNT(applications.id) AS application_count
+    FROM items
+    JOIN users ON items.user_id = users.id
+    LEFT JOIN applications ON applications.item_id = items.id
+    WHERE items.user_id = ?
+    GROUP BY items.id
+    ORDER BY items.id DESC
+    """
     return db.query(sql, [user_id])
 
 def create_user(username, password1):

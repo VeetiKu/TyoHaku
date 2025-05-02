@@ -26,7 +26,7 @@
         <textarea name="description" rows="20" cols="70" maxlength="1000" required></textarea>
     </p>
         Viimeinen Hakupäivä: <br />
-        <input type="date" name="deadline" required />
+        <input type="date" name="deadline" min="{{ today }}" required />
     </p>
     {% for class in classes %}
     <p>

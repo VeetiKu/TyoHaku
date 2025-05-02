@@ -11,10 +11,14 @@
     </p>
 
     <h3>Ilmoitukset</h3>
-    <ul>
-        {% for item in items %}
-        <li><a href="/item/{{ item.id }}">{{ item.title }}</a></li>
-        {% endfor %}
-    </ul>
+    
+    {% for item in items %}
+      <div class="item">
+        <a href="/item/{{ item.id }}">{{ item.title }}</a> <br />
+        Ilmoittaja: <a href="/user/{{ item.user_id }}">{{ item.username }}</a> <br />
+        Hakijoiden määrä: {{ item.application_count }}
+      </div>
+    {% endfor %}
 </div>
-{%endblock%}
+
+{% endblock %}

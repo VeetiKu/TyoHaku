@@ -8,6 +8,7 @@ import config
 import items
 import users
 import markupsafe
+import datetime
 
 
 app = Flask(__name__)
@@ -65,7 +66,7 @@ def show_item(item_id):
 def uusi_julkaisu():
     check_login()
     classes = items.get_all_classes()
-    return render_template("uusi_julkaisu.html", classes=classes)
+    return render_template("uusi_julkaisu.html", classes=classes, today=datetime.date.today())
 
 @app.route("/create_application", methods=["POST"])
 def create_application():
@@ -118,6 +119,10 @@ def create_item():
     if not location or len(location) > 50:
         abort(403)
     deadline = request.form["deadline"]
+    if deadline < str(datetime.date.today()):
+        flash("VIRHE: Päivämäärä ei voi olla menneisyydessä")
+        return redirect("/uusi_julkaisu")
+        
     user_id = session["user_id"]
     
     all_classes = items.get_all_classes()
@@ -178,6 +183,9 @@ def update_item():
     if not location or len(location) > 50:
         abort(403)
     deadline = request.form["deadline"]
+    if deadline < str(datetime.date.today()):
+        flash("VIRHE: Päivämäärä ei voi olla menneisyydessä")
+        return redirect("/item/" + str(item_id))
     
     all_classes = items.get_all_classes()
     classes = []
