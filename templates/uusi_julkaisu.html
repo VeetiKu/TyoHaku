@@ -7,26 +7,26 @@
     <div class="item_view">
     <form action="/create_item" method="post">
         <p>
-            Työtehtävä: <br />
-            <input type="text" name="title" maxlength="50" required />
+            <label for="title">Työtehtävä: </label><br />
+            <input type="text" name="title" maxlength="50" id="title" required />
         </p>
         <p>
-            Työnantajan nimi: <br />
-            <input type="text" name="author" maxlength="50" required />
+            <label for="author">Työnantajan nimi: </label> <br />
+            <input type="text" name="author" maxlength="50" id="author"required />
         </p>
         <p>
-            Työpaikan sijainti: <br />
-            <input type="text" name="location" maxlength="50" required />
+            <label for="location"> Työpaikan sijainti:</label> <br />
+            <input type="text" name="location" maxlength="50" id="location" required />
         </p>
         <p>
-            Palkka: <br /> 
-            <input type="text" name="salary" pattern="[1-9][0-9]{0,7}" required/> €/kk
+            <label for="salary"> Palkka: </label> <br />  
+            <input type="text" name="salary" pattern="[1-9][0-9]{0,7}" id="salary" required/> €/kk
         </p>
-        Työnkuvaus: <br />
-        <textarea name="description" rows="20" cols="70" maxlength="1000" required></textarea>
+        <label for="description">Työnkuvaus: </label> <br />
+        <textarea name="description" rows="20" cols="70" maxlength="1000" id="description" required></textarea>
     </p>
-        Viimeinen Hakupäivä: <br />
-        <input type="date" name="deadline" min="{{ today }}" required />
+        <label for="deadline"> Viimeinen hakupäivä: </label> <br />
+        <input type="date" name="deadline" min="{{ today }}" id="deadline" required />
     </p>
     {% for class in classes %}
     <p>
