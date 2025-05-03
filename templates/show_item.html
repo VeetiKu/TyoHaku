@@ -68,9 +68,10 @@
 
 {% if session.user_id %}
     {% if session.user_id != item.user_id %}
-        {% if request.args.get('error') == 'already_applied' %}
-        <p style="color: red; font-weight: bold;">Olet jo hakenut tähän työpaikkaan.</p>
-    {% else %}
+        {% set already_applied = applications | selectattr('user_id', 'equalto', session.user_id) | list %}
+        {% if already_applied %}
+            <p>Olet jo hakenut tähän työpaikkaan.</p>
+        {% else %}
 
     <form action="/create_application" method="post">
         <input type="hidden" name="item_id" value="{{ item.id }}">
@@ -92,7 +93,7 @@
     <p>Et voi hakea omaan työpaikkaasi.</p>
     {% endif %}
 {% else %}
-    <p>Sinun täytyy olla kirjautuneena, jotta voit hakea työpaikkaa.</p>
+<p>Sinun täytyy olla kirjautuneena, jotta voit hakea työpaikkaa. <a href="/login">Kirjaudu sisään täällä</a></p>
 {% endif %}
 </div>
 {% endblock %}

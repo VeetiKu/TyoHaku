@@ -243,10 +243,12 @@ def create():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
-        return render_template("login.html")
+        return render_template("login.html", filled={})
 
     if request.method == "POST":
         username = request.form["username"]
+        if len(username) > 16:
+            abort(403)
         password = request.form["password"]
     
     user_id = users.check_login(username, password)
@@ -258,7 +260,8 @@ def login():
         return redirect("/")
     else:
         flash("VIRHE: väärä tunnus tai salasana")
-        return redirect("/login")
+        filled = {"username": username}
+        return render_template("login.html", filled=filled)
 
 @app.route("/logout")
 def logout():
