@@ -155,7 +155,7 @@ def edit_item(item_id):
     for entry in items.get_classes(item_id):
         classes[entry["title"]] = entry["value"]
 
-    return render_template("edit_item.html", item=item, classes=classes, all_classes=all_classes)
+    return render_template("edit_item.html", item=item, classes=classes, all_classes=all_classes, today=datetime.date.today())
 
 @app.route("/update_item", methods=["POST"])
 def update_item():
