@@ -13,4 +13,23 @@
 * Työpaikka ilmoituksen julkaisija näkee listan käyttäjistä jotka ovat hakeneet työpaikkaa ja heidän lähettämänsä hakemukset.
 
 
+## Sovelluksen asennus
 
+ Asenna `flask`- kirjasto:
+
+ ```
+ $ pip install flask
+ ```
+
+ Luo tietokannan taulut ja lisää alkutiedot:
+
+```
+$ sqlite3 database.db < schema.sql
+$ sqlite3 database.db < init.sql
+```
+
+Käynnistä Sovellus:
+
+```
+$ flask run
+```
