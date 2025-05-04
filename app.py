@@ -1,15 +1,15 @@
-import secrets
-from flask import Flask
 import sqlite3
-from flask import abort,redirect, render_template, request, session, flash
-import db
+import datetime
 import re
+import secrets
+
+from flask import Flask
+from flask import abort, redirect, render_template, request, session, flash
+
+import markupsafe
 import config
 import items
 import users
-import markupsafe
-import datetime
-
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -17,18 +17,18 @@ app.secret_key = config.secret_key
 def check_login():
     if "user_id" not in session:
         abort(403)
-        
+
 def check_csrf():
-     if "csrf_token" not in request.form:
+    if "csrf_token" not in request.form:
          abort(403)
-     if request.form["csrf_token"] != session["csrf_token"]:
-         abort(403)
-         
+    if request.form["csrf_token"] != session["csrf_token"]:
+        abort(403)
+
 @app.template_filter()
 def show_lines(content):
-     content = str(markupsafe.escape(content))
-     content = content.replace("\n", "<br />")
-     return markupsafe.Markup(content)
+    content = str(markupsafe.escape(content))
+    content = content.replace("\n", "<br />")
+    return markupsafe.Markup(content)
 
 @app.route("/")
 def index():
@@ -40,8 +40,8 @@ def show_user(user_id):
     user = users.get_user(user_id)
     if not user:
         abort(404)
-    items = users.get_items(user_id)
-    return render_template("show_user.html", user=user, items=items)
+    user_items = users.get_items(user_id)
+    return render_template("show_user.html", user=user, items=user_items)
 
 @app.route("/find_item")
 def find_item():
@@ -86,12 +86,12 @@ def create_application():
     if not item:
         abort(403)
     user_id = session["user_id"]
-    
+
     if items.check_applications(item_id, user_id):
         return redirect("/item/" + str(item_id) + "?error=already_applied")
- 
+
     items.add_application(item_id, user_id, message, age, email)
- 
+
     return redirect("/item/" + str(item_id))
 
 @app.route("/register")
@@ -102,7 +102,7 @@ def register():
 def create_item():
     check_login()
     check_csrf()
-    
+
     title = request.form["title"]
     if not title or len(title) > 50:
         abort(403)
@@ -113,7 +113,7 @@ def create_item():
     if not description or len(description) > 1000:
         abort(403)
     salary = request.form["salary"]
-    if not re.search("^[1-9][0-9]{0,7}$", salary):  
+    if not re.search("^[1-9][0-9]{0,7}$", salary):
         abort(403)
     location = request.form["location"]
     if not location or len(location) > 50:
@@ -122,9 +122,9 @@ def create_item():
     if deadline < str(datetime.date.today()):
         flash("VIRHE: Päivämäärä ei voi olla menneisyydessä")
         return redirect("/uusi_julkaisu")
-        
+
     user_id = session["user_id"]
-    
+
     all_classes = items.get_all_classes()
     classes = []
     for entry in request.form.getlist("classes"):
@@ -135,7 +135,7 @@ def create_item():
             if class_value not in all_classes[class_title]:
                 abort(403)
             classes.append((class_title, class_value))
-    
+
     items.add_item(title, author, description, salary, location, deadline, user_id, classes)
 
     return redirect("/")
@@ -154,7 +154,7 @@ def edit_item(item_id):
         classes[my_class] = ""
     for entry in items.get_classes(item_id):
         classes[entry["title"]] = entry["value"]
- 
+
     return render_template("edit_item.html", item=item, classes=classes, all_classes=all_classes)
 
 @app.route("/update_item", methods=["POST"])
@@ -186,7 +186,7 @@ def update_item():
     if deadline < str(datetime.date.today()):
         flash("VIRHE: Päivämäärä ei voi olla menneisyydessä")
         return redirect("/item/" + str(item_id))
-    
+
     all_classes = items.get_all_classes()
     classes = []
     for entry in request.form.getlist("classes"):
@@ -195,11 +195,11 @@ def update_item():
             if class_title not in all_classes:
                 abort(403)
             if class_value not in all_classes[class_title]:
-                 abort(403)
+                abort(403)
             classes.append((class_title, class_value))
-    
+
     items.update_item(item_id, title, author, description, salary, location, deadline, classes)
-    
+
     return redirect("/item/" + str(item_id))
 
 @app.route("/remove_item/<int:item_id>", methods=["GET", "POST"])
@@ -210,18 +210,16 @@ def remove_item(item_id):
         abort(404)
     if item["user_id"] != session["user_id"]:
         abort(403)
-        
+
     if request.method == "GET":
         return render_template("remove_item.html", item=item)
-    
+
     if request.method == "POST":
         check_csrf()
         if "remove" in request.form:
             items.remove_item(item_id)
             return redirect("/")
-        else:   
-            return redirect("/item/" + str(item_id))
-
+        return redirect("/item/" + str(item_id))
 
 @app.route("/create", methods=["POST"])
 def create():
@@ -229,14 +227,14 @@ def create():
     password1 = request.form["password1"]
     password2 = request.form["password2"]
     if password1 != password2:
-            flash("VIRHE: Salasanat eivät ole samat")
-            return redirect("/register")
-    
+        flash("VIRHE: Salasanat eivät ole samat")
+        return redirect("/register")
+
     try:
         users.create_user(username, password1)
     except sqlite3.IntegrityError:
-            flash("VIRHE: Tunnus on jo varattu")
-            return redirect("/register")
+        flash("VIRHE: Tunnus on jo varattu")
+        return redirect("/register")
     flash("Tunnus Luotu")
     return redirect("/")
 
@@ -250,7 +248,7 @@ def login():
         if len(username) > 16:
             abort(403)
         password = request.form["password"]
-    
+
     user_id = users.check_login(username, password)
 
     if user_id:
@@ -258,10 +256,10 @@ def login():
         session["username"] = username
         session["csrf_token"] = secrets.token_hex(16)
         return redirect("/")
-    else:
-        flash("VIRHE: väärä tunnus tai salasana")
-        filled = {"username": username}
-        return render_template("login.html", filled=filled)
+
+    flash("VIRHE: väärä tunnus tai salasana")
+    filled = {"username": username}
+    return render_template("login.html", filled=filled)
 
 @app.route("/logout")
 def logout():
