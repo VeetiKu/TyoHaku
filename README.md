@@ -8,7 +8,9 @@
 * Käyttäjä pystyy etsimään työpaikkailmotuksia hakusanalla.
 * Sovelluksessa on käyttäjäsivu, jotka näyttävät tilastoja ja käyttäjän lisäämät julkaisut.
 * Käyttäjä pystyy valitsemaan julkaisulle yhden tai useamman luokittelun.
+* Käyttäjä pystyy hakemaan toisen käyttäjän julkaisemaa työpaikkaa.
+* Käyttäjä pystyy poistamaan oman hakemuksensa.
 * Työpaikka ilmoituksen julkaisija näkee listan käyttäjistä jotka ovat hakeneet työpaikkaa ja heidän lähettämänsä hakemukset.
-* Työpaikka ilmoituksen muut hakijat näkevät vain muiden hakijoiden määrän.
+
 
 
